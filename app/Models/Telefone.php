@@ -12,5 +12,6 @@ class Telefone extends Model
     protected $fillable = [
         'tipo',
         'numero',
+        'contato_id'
     ];
 }

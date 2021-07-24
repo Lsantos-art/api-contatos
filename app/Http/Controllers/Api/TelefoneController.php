@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Models\Contatos;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Telefone;
 
-class ContatoController extends Controller
+class TelefoneController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class ContatoController extends Controller
      */
     public function index()
     {
-        return Contatos::orderBy('id', 'DESC')->get();
+        //
     }
 
     /**
@@ -36,16 +36,20 @@ class ContatoController extends Controller
      */
     public function store(Request $request)
     {
-       $data = $request->only(['name', 'email', 'facebook_link', 'linkedin_link']);
-       $status = Contatos::create($data);
+        $data = [];
+        $data['tipo'] = $request->tipo;
+        $data['numero'] = "(" . $request->ddd . ") " . $request->numero;
+        $data['contato_id'] = $request->contato_id;
 
-       if ($status) {
-           $message = 'Salvo com sucesso!';
-       }else {
-            $message = 'Ops, houve um erro!';
-       }
+        $status = Telefone::create($data);
 
-       return response()->json(['message' => $message]);
+        if ($status) {
+            $message = 'Salvo com sucesso!';
+        }else {
+                $message = 'Ops, houve um erro!';
+        }
+
+        return response()->json(['message' => $message]);
     }
 
     /**
@@ -56,15 +60,7 @@ class ContatoController extends Controller
      */
     public function show($id)
     {
-        $contato = Contatos::findOrFail($id);
-
-        if ($contato) {
-            return response()->json(['contato' => $contato]);
-        }else {
-             $message = 'Ops, houve um erro!';
-             return response()->json(['message' => $message]);
-        }
-
+        return Telefone::where('contato_id', $id)->get();
     }
 
     /**
@@ -85,20 +81,9 @@ class ContatoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $contato = Contatos::find($request->id);
-        $data = $request->only(['name', 'email', 'facebook_link', 'linkedin_link']);
-
-        if ($contato) {
-            $contato->update($data);
-            $message = 'Atualizado com sucesso!';
-        }else {
-             $message = 'Ops, houve um erro!';
-        }
-
-        return response()->json(['message' => $message]);
-
+        //
     }
 
     /**
@@ -109,10 +94,10 @@ class ContatoController extends Controller
      */
     public function destroy($id)
     {
-        $contato = Contatos::find($id);
+        $telefone = Telefone::find($id);
 
-        if ($contato) {
-            $contato->delete();
+        if ($telefone) {
+            $telefone->delete();
             $message = 'Removido com sucesso!';
         }else {
              $message = 'Ops, houve um erro!';

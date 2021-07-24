@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ContatoController;
+use App\Http\Controllers\Api\TelefoneController;
 
 
 /*
@@ -26,6 +27,11 @@ Route::group(['prefix' => 'contatos', 'middleware' => ['authGuard']], function()
     Route::get('/{id}', [ContatoController::class, 'show']);
     Route::delete('/{id}', [ContatoController::class, 'destroy']);
     Route::post('/', [ContatoController::class, 'store']);
+    Route::post('/update', [ContatoController::class, 'update']);
+
+    Route::get('/telefones/{id}', [TelefoneController::class, 'show']);
+    Route::delete('/telefone/{id}', [TelefoneController::class, 'destroy']);
+    Route::post('/telefone', [TelefoneController::class, 'store']);
 });
 
 
