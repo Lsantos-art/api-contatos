@@ -16,11 +16,13 @@ Clone este repositório para sua máquina e execute:
 ```bash
 composer install 
 php artisan serve
+php artisan db:seed
 ```
 Se você tiver o laradock instalado, basta clonar dentro de um dos workspaces e rodar:
 
 ```bash
 docker-compose up -d nginx postgres pgadmin
+php artisan db:seed
 ```
 
 Para ter acesso ao Front-end desta API, construida em Angular, acesse:  [front-end](https://github.com/Lsantos-art/angular-jwt-implementado).
