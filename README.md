@@ -33,6 +33,22 @@ ng serve --port 4222
 ```
 
 
+## Contribuidores<br>
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/Lsantos-art">
+        <img src="https://avatars.githubusercontent.com/u/59149941?v=4" width="100px;" alt="Foto do Lindomar Lima no GitHub"/><br>
+        <sub>
+          <b>Lindomar Lima</b>
+        </sub>
+      </a>
+    </td>
+  </tr>
+</table>
+
+
 
 ## License
 
