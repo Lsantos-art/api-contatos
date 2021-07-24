@@ -15,7 +15,7 @@ class ContatoController extends Controller
      */
     public function index()
     {
-        return Contatos::get();
+        return Contatos::orderBy('id', 'DESC')->get();
     }
 
     /**
@@ -36,7 +36,16 @@ class ContatoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $data = $request->only(['name', 'email', 'facebook_link', 'linkedin_link']);
+       $status = Contatos::create($data);
+
+       if ($status) {
+           $message = 'Salvo com sucesso!';
+       }else {
+            $message = 'Ops, houve um erro!';
+       }
+
+       return response()->json(['message' => $message]);
     }
 
     /**
@@ -47,7 +56,15 @@ class ContatoController extends Controller
      */
     public function show($id)
     {
-        //
+        $contato = Contatos::findOrFail($id);
+
+        if ($contato) {
+            return response()->json(['contato' => $contato]);
+        }else {
+             $message = 'Ops, houve um erro!';
+             return response()->json(['message' => $message]);
+        }
+
     }
 
     /**
@@ -81,6 +98,15 @@ class ContatoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $contato = Contatos::find($id);
+
+        if ($contato) {
+            $contato->delete();
+            $message = 'Removido com sucesso!';
+        }else {
+             $message = 'Ops, houve um erro!';
+        }
+
+        return response()->json(['message' => $message]);
     }
 }

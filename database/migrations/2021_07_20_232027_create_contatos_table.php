@@ -17,8 +17,8 @@ class CreateContatosTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('facebook_link');
-            $table->string('linkedin_link');
+            $table->string('facebook_link')->nullable();
+            $table->string('linkedin_link')->nullable();
             $table->timestamps();
         });
     }

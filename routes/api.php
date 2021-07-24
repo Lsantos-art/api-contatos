@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\ContatoController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ContatoController;
 
 
 /*
@@ -23,7 +22,10 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', 'App\Http\Controllers\Api\AuthController@login');
 
 Route::group(['prefix' => 'contatos', 'middleware' => ['authGuard']], function(){
-    Route::get('/', 'App\Http\Controllers\Api\ContatoController@index');
+    Route::get('/', [ContatoController::class, 'index']);
+    Route::get('/{id}', [ContatoController::class, 'show']);
+    Route::delete('/{id}', [ContatoController::class, 'destroy']);
+    Route::post('/', [ContatoController::class, 'store']);
 });
 
 
