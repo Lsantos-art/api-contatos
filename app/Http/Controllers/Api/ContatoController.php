@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\NewContatoJob;
+use App\Mail\NewContatoMail;
 use App\Models\Contatos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ContatoController extends Controller
 {
@@ -44,6 +47,8 @@ class ContatoController extends Controller
        }else {
             $message = 'Ops, houve um erro!';
        }
+
+       NewContatoJob::dispatch($request->email)->delay(now()->addSeconds('15'));
 
        return response()->json(['message' => $message]);
     }
